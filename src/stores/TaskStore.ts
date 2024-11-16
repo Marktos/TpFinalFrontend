@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { TaskState, Task } from "../models/TaskModel";
+import { createTask } from "../services/task/TaskController";
 
 interface TaskFilterState extends TaskState {
   completed: Task[];
@@ -18,6 +19,9 @@ export const useTaskStore = defineStore({
   }),
   actions: {
     addTask(task: Task) {
+      //Creo la task en el back
+      createTask({title: task.tarea, description: 'Incompleta'})
+      
       let taskId: number = this.data.length;
       let newTask: Task = { ...task, id: taskId };
       this.data.push(newTask);

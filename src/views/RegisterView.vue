@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { useSesionStore } from '../stores/AuthSesionStore';
-import router from '../router';
 
 const sesionStore = useSesionStore()
 
@@ -11,9 +10,9 @@ const form = reactive({
 })
 
 
-const login = () => {
+const register = () => {
     if (form.email.trim() !== '' && form.password.trim() !== '') {
-        sesionStore.login({ email: form.email, password: form.password });
+        sesionStore.register({ email: form.email, password: form.password });
         form.email = '';
         form.password = '';
     }
@@ -41,14 +40,15 @@ const login = () => {
             <div
                 class="mx-5 border dark:border-b-white/50 dark:border-t-white/50 border-b-white/20 sm:border-t-white/20 shadow-[20px_0_20px_20px] shadow-slate-500/10 dark:shadow-white/20 rounded-lg border-white/20 border-l-white/20 border-r-white/20 sm:shadow-sm lg:rounded-xl lg:shadow-none">
                 <div class="flex flex-col p-6">
-                    <h3 class="text-xl font-semibold leading-6 tracking-tighter">Login</h3>
-                    <p class="mt-1.5 text-sm font-medium text-white/50">Welcome back, enter your credentials to
-                        continue.
+                    <h3 class="text-xl font-semibold leading-6 tracking-tighter">Register</h3>
+                    <p class="mt-1.5 text-sm font-medium text-white/50">First time here? Complete your credentials to
+                        create an account.
                     </p>
                 </div>
                 <div class="p-6 pt-0">
                     <form>
-                        <div>
+                        
+                        <div class="mt-4">
                             <div>
                                 <div
                                     class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
@@ -86,10 +86,10 @@ const login = () => {
                         </div>
                         <div class="mt-4 flex items-center justify-end gap-x-2">
                             <a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:ring hover:ring-white h-10 px-4 py-2 duration-200"
-                                href="/register" @click="router.push('register')">Register</a>
-                            <button @click="login"
+                                href="/login">Log in</a>
+                            <button @click="register"
                                 class="font-semibold hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black h-10 px-4 py-2"
-                                type="submit">Log in</button>
+                                type="submit">Register</button>
                         </div>
                     </form>
                 </div>

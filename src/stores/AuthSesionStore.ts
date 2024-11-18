@@ -54,7 +54,7 @@ export const useSesionStore = defineStore({
           console.info(`Usuario logueado exitosamente`);
           this.renewToken();
           this.loading = false;
-          router.push("/tasks");
+          router.push("/");
         }
       } catch (e) {
         this.loading = false;
@@ -96,7 +96,7 @@ export const useSesionStore = defineStore({
         if (response.status === 200) {
           console.info(`Logout exitoso`);
           this.loading = false;
-          router.push("/");
+          router.push("/login");
         }
       } catch (e) {
         console.error(`Error al realizar la peticion: ${e}`);

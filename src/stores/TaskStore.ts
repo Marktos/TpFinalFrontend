@@ -102,7 +102,7 @@ export const useTaskStore = defineStore({
       };
       try {
         await API.updateTask(task.id!, apiToBeUpdateTask);
-        console.info(`Tarea Actualizada`);
+        console.info(`Tarea Actualizada ${task}`);
         this.loading = false;
       } catch (e) {
         console.error(`Error al realizar la peticion: ${e}`);

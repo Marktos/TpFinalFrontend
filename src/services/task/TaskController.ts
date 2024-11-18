@@ -20,7 +20,7 @@ export async function getTask(id: number) {
 
 // Actualiza una task
 export async function updateTask(id: number, task: CreateTask) {
-  return await apiInstance.put<APIResponse<TaskApiResponse>>(
+  return await apiInstance.patch<APIResponse<TaskApiResponse>>(
     `/todo/${id}`,
     task
   );

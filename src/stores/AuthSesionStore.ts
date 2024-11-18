@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import type { SesionStateModel } from "../models/SessionStateModel";
-import type { CredentialsModel } from "../models/CredentialsModel";
+import { CredentialsModel } from "../models/CredentialsModel";
+import { SesionStateModel } from "../models/SessionStateModel";
 import router from "../router";
 import { API } from "../services";
 import { apiInstance } from "../services/api";
@@ -20,22 +20,24 @@ export const useSesionStore = defineStore({
     changeCrsfToken() {
       const headers = apiInstance.defaults.headers;
       this.data!.crsfToken = headers["csrf-token"]?.toString();
-      console.info("CRSF Actualizado");
+      console.info("`Token CSRF Actualizado`");
     },
 
-    async registerUser(userData: CredentialsModel) {
+    async register(userData: CredentialsModel) {
       this.loading = true;
       try {
         const response = await API.CreateUser(userData);
 
         if (response.status === 201) {
           this.data!.user = userData;
-          console.info(`Usuario creado: ${response.status}`);
+          console.info(`Usuario creado correctamente`);
+
+          //Logueo al usuario
           this.login(userData);
           this.loading = false;
         }
       } catch (e) {
-        console.error(`Sucedio un error: ${e}`);
+        console.error(`Error al realizar la peticion: ${e}`);
         this.error = e!.toString();
       }
     },
@@ -48,37 +50,59 @@ export const useSesionStore = defineStore({
           this.data!.user = userData;
           const currentEpochTime = Math.floor(Date.now() / 1000);
           this.data!.jwtExpires = currentEpochTime + 3 * 60;
-          console.info(`Login exitoso: ${response.status}`);
+
+          console.info(`Usuario logueado exitosamente`);
+          this.renewToken();
           this.loading = false;
           router.push("/tasks");
         }
-        this.update(userData);
       } catch (e) {
-        console.error(`Sucedio un error: ${e}`);
+        this.loading = false;
+        console.error(`Error al realizar la peticion: ${e}`);
         this.error = e!.toString();
       }
     },
 
-    async update(userData: CredentialsModel) {
-      setInterval(async () => {
-        this.loading = true;
-        const currentTime = Math.floor(Date.now() / 1000);
-        if (
-          this.data!.jwtExpires &&
-          currentTime >= this.data!.jwtExpires - 60
-        ) {
+    renewToken() {
+      setTimeout(
+        async () => {
           try {
-            const response = await API.Login(userData);
+            const response = await API.Login({
+              email: this.data!.user!.email,
+              password: this.data!.user!.password,
+            });
             if (response.status === 200) {
-              this.data!.jwtExpires = Math.floor(Date.now() / 1000) + 3 * 60;
+              const currentEpochTime = Math.floor(Date.now() / 1000);
+              this.data!.jwtExpires = currentEpochTime + 3 * 60;
+              console.info(`Token renovado`);
             }
-            this.loading = false;
           } catch (e) {
-            console.error(`Erorr al actualizar sesion: ${e}`);
+            console.error(`Error al realizar la peticion: ${e}`);
             this.error = e!.toString();
           }
+        },
+        3 * 60 * 1000
+      );
+
+      setTimeout(() => this.renewToken(), 3 * 60 * 1000);
+    },
+
+    async logout() {
+      this.loading = true;
+      this.data!.user = undefined;
+      this.data!.jwtExpires = undefined;
+      try {
+        const response = await API.Logout();
+        if (response.status === 200) {
+          console.info(`Logout exitoso`);
+          this.loading = false;
+          router.push("/");
         }
-      }, 60 * 1000);
+      } catch (e) {
+        console.error(`Error al realizar la peticion: ${e}`);
+        this.loading = false;
+        this.error = e!.toString();
+      }
     },
   },
 });

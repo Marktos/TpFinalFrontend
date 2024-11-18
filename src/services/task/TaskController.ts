@@ -5,28 +5,28 @@ import { CreateTask } from "../../models/TaskRequestModels";
 
 //Crea una task
 export async function createTask(task: CreateTask) {
-  return await apiInstance.post<APIResponse<TaskApiResponse>>("/task", task);
+  return await apiInstance.post<APIResponse<TaskApiResponse>>("/todo", task);
 }
 
 // Recibe todas las tasks
 export async function getTasks() {
-  return await apiInstance.get<APIResponse<TaskApiResponse[]>>("/task");
+  return await apiInstance.get<APIResponse<TaskApiResponse[]>>("/todo");
 }
 
 // Recibe una task
 export async function getTask(id: number) {
-  return await apiInstance.get<APIResponse<TaskApiResponse>>(`/task/${id}`);
+  return await apiInstance.get<APIResponse<TaskApiResponse>>(`/todo/${id}`);
 }
 
 // Actualiza una task
 export async function updateTask(id: number, task: CreateTask) {
   return await apiInstance.put<APIResponse<TaskApiResponse>>(
-    `/task/${id}`,
+    `/todo/${id}`,
     task
   );
 }
 
 // Borra una task
 export function deleteTask(id: number) {
-  return apiInstance.delete(`/task/${id}`);
+  return apiInstance.delete(`/todo/${id}`);
 }

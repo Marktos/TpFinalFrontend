@@ -78,16 +78,16 @@ console.log('')
                             <tr>
                                 <td>1</td>
                                 
-                                <td class="text-center">Sample Name</td>
-                                <td>Sample Description</td>
+                                <td class="text-center">Tarea 1</td>
+                                <td>Probando la seccion de tareas</td>
                                 <td class="p-2">
                                     <div class="flex justify-center">
-                                    <a href="#" class="rounded-md hover:bg-green-100 text-green-600 p-2 flex justify-between items-center">
+                                    <a href="#" class="rounded-md hover:bg-blue-100 text-blue-600 p-2 flex justify-between items-center">
                                         <span><FaEdit class="w-4 h-4 mr-1"/>
                                         </span> Edit
                                     </a>
-                                    <button class="rounded-md hover:bg-red-100 text-red-600 p-2 flex justify-between items-center">
-                                        <span><FaTrash class="w-4 h-4 mr-1" /></span> Delete
+                                    <button class="rounded-md hover:bg-green-100 text-green-600 p-2 flex justify-between items-center">
+                                        <span><FaTrash class="w-4 h-4 mr-1" /></span> Completed
                                     </button>
                                     </div>
                                 </td>

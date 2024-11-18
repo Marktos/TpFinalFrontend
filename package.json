@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.13.0",
     "@ionic/vue": "^8.3.2",
     "@mui/material": "^6.1.7",
+    "alpinejs": "^3.14.3",
     "autoprefixer": "^10.4.20",
     "ionicons": "^7.4.0",
     "pinia": "^2.1.7",

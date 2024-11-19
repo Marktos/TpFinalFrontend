@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import Loading_Component from '../components/Loading_Component.vue';
 import TaskForm_Component from '../components/TaskForm_Component.vue';
 import TaskTable_Component from '../components/TaskTable_Component.vue';
 import { useSesionStore } from '../stores/AuthSesionStore';
+import { useTaskStore } from '../stores/TaskStore';
 
 const sesionStore = useSesionStore()
-
+const taskStore = useTaskStore()
 </script>
 
 <template>
@@ -24,8 +26,9 @@ const sesionStore = useSesionStore()
                 Logout
             </button>
         </div>
-        <div class="header my-3 h-12 px-10 flex items-center justify-between">
-            <h1 class="font-medium text-2xl">All Tasks</h1>
+        <div class="header my-3 h-12 px-10 flex justify-start items-start">
+            <Loading_Component v-if="taskStore.loading || sesionStore.loading"/>
+            <h1 v-else class="font-medium text-2xl mt-5">All Tasks</h1>
         </div>
         <div class="flex flex-col mx-3 mt-6 lg:flex-row">
             <TaskForm_Component />

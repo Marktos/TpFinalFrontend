@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { useSesionStore } from '../stores/AuthSesionStore';
+import Loading_Component from '../components/Loading_Component.vue';
 
 const sesionStore = useSesionStore()
 
@@ -39,6 +40,7 @@ const register = () => {
                 bis_skin_checked="1"></div>
             <div
                 class="mx-5 border dark:border-b-white/50 dark:border-t-white/50 border-b-white/20 sm:border-t-white/20 shadow-[20px_0_20px_20px] shadow-slate-500/10 dark:shadow-white/20 rounded-lg border-white/20 border-l-white/20 border-r-white/20 sm:shadow-sm lg:rounded-xl lg:shadow-none">
+                <Loading_Component v-show="sesionStore.loading" />
                 <div class="flex flex-col p-6">
                     <h3 class="text-xl font-semibold leading-6 tracking-tighter">Register</h3>
                     <p class="mt-1.5 text-sm font-medium text-white/50">First time here? Complete your credentials to
